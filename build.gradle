@@ -1,0 +1,35 @@
+apply plugin: 'scala'
+apply plugin: 'eclipse'
+apply plugin: 'gradle-one-jar'
+
+version = '1.0'
+buildscript {
+	repositories {
+	    mavenCentral()
+	}
+	dependencies {
+    	classpath 'com.github.rholder:gradle-one-jar:1.0.4'
+  	}
+}
+
+compileScala {
+    //enable compilation in a separate daemon process
+    options.fork = true
+
+    //enable incremental compilation
+    options.incremental = true
+}
+
+repositories {
+    mavenCentral()
+}
+
+def scalaVersion = '2.11.7'
+def scalaSparkVersion = '2.11'
+def sparkVersion = '1.6.0'
+
+dependencies {
+    compile "org.scala-lang:scala-library:$scalaVersion"
+    compile "org.apache.spark:spark-core_$scalaSparkVersion:$sparkVersion"
+    compile "org.apache.spark:spark-sql_$scalaSparkVersion:$sparkVersion"
+}
