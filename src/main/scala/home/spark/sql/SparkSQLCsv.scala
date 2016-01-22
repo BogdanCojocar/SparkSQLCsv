@@ -70,10 +70,24 @@ object SparkSQLCsv {
                b.occupation,
                b.address
         FROM data a
-        JOIN newdata b
+        INNER JOIN newdata b
         ON a.fullName = b.fullName
     """)
     joinData.foreach(println)
+    println
+    
+    println("Join on data and newdata tables where the sex is male")
+    val joinDataOrderedByAge = sqlCt.sql("""
+        SELECT a.fullName,
+               a.age,
+               b.occupation
+        FROM data a
+        JOIN newdata b
+        ON a.fullName = b.fullName
+        WHERE a.sex = 'male'
+    """)
+    joinDataOrderedByAge.foreach(println)
+    println
 
     sc.stop()
   }
